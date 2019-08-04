@@ -10,15 +10,15 @@ var connection = mysql.createConnection({
 
 var products = [];
 var productNames = [];
-var product;
 var price;
 var quantity;
 
-// connection.connect(function (err) {
-//     if (err) throw err;
+connection.connect(function (err) {
+    if (err) throw err;
 
-//     getProducts();
-// })
+    getProducts();
+
+})
 
 function getProducts() {
     console.log("Reading all products...\n");
@@ -76,23 +76,37 @@ function quantitySelect(str) {
         }
     ]).then(function (answer) {
         console.log(`You chose ${answer.quantity} ${str}s.`);
-        // removeStock(str);
+        quantity -= answer.quantity;
+        removeStock(str, answer.quantity);
     })
 }
 
-// function removeStock(str) {
-//     connection.query("UPDATE products SET WHERE product_name = ?", [str], {
-//         stock_quantity: 20
-//     },
-//     function (err, res) {
-//         if (err) throw err;
-//     });
-// }
+function removeStock(str, num) {
+    connection.query(
+        "UPDATE products SET ? WHERE ?",
+        [
+            {
+                stock_quantity: quantity
+            },
+            {
+                product_name: str
+            }
+        ],
+        function (err, res) {
+            if (err) throw err;
+        }
+    );
+    console.log(`${num} ${str}s removed from stock.`)
+    connectionEnd();
+    totalPrice(num);
+}
+
+function totalPrice(num) {
+    price = price * num;
+    console.log(`Your total cost is $${price}.`)
+}
 
 function connectionEnd() {
     connection.end();
 }
 
-getProducts();
-
-connectionEnd();
