@@ -25,5 +25,4 @@ VALUES ("Mythril Axe", "Weapons", 50.00, 10),
 ("Kunai", "Weapons", 20.00, 50),
 ("Flametongue", "Weapons", 450.00, 2),
 ("Partisan", "Weapons", 100.00, 8),
-("Oak Staff", "Weapons", 15.00, 20),
 ("Ice Brand", "Weapons", 430.00, 3);
