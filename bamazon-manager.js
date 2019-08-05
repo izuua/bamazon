@@ -30,6 +30,12 @@ function start() {
             case "View Low Inventory":
                 lowInventory();
                 break;
+            case "Add to Inventory":
+                addInventory();
+                break;
+            case "Add New Product":
+                addProduct();
+                break;
         }
         
     })
@@ -57,6 +63,14 @@ function lowInventory() {
         })
     })
 
+    connectionEnd();
+}
+
+function addInventory() {
+    connectionEnd();
+}
+
+function addProduct() {
     connectionEnd();
 }
 
