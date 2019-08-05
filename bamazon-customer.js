@@ -1,10 +1,13 @@
+require("dotenv").config();
+
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var keys = require("./keys.js");
 
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: keys.connection_pass,
     database: "bamazon_DB"
 })
 
