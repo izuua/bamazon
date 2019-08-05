@@ -13,13 +13,6 @@ var productNames = [];
 var price;
 var quantity;
 
-connection.connect(function (err) {
-    if (err) throw err;
-
-    getProducts();
-
-})
-
 function getProducts() {
     console.log("Reading all products...\n");
     connection.query("SELECT * FROM products", function (err, res) {
@@ -110,3 +103,9 @@ function connectionEnd() {
     connection.end();
 }
 
+connection.connect(function (err) {
+    if (err) throw err;
+
+    getProducts();
+
+})
