@@ -14,9 +14,10 @@ CREATE TABLE products (
 );
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Mythril Axe", "Weapons", 50.00, 10),
-("Bronze Sword", "Weapons", 10.00, 50),
+VALUES 
 ("Hairband", "Accessories", 10.00, 30),
+("Mythril Axe", "Weapons", 50.00, 10),
+("Bronze Sword", "Weapons", 10.00, 50),
 ("Chainmail", "Armor", 80.00, 15),
 ("Iron Helmet", "Armor", 25.00, 30),
 ("Iron Shield", "Accessories", 30.00, 20),
