@@ -4,4 +4,4 @@ This is an Amazon-like storefront that takes in orders from customers and deplet
 
 ## In action
 ![in action](bamazon-1.PNG)
-![in action](bamazon-1.PNG)
+![in action](bamazon-2.PNG)
