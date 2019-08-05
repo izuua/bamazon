@@ -72,7 +72,7 @@ function quantitySelect(str) {
         }
     ]).then(function (answer) {
         console.log(`You chose ${answer.quantity} ${str}s.`);
-        quantity -= answer.quantity;
+        // quantity -= answer.quantity;
         removeStock(str, answer.quantity);
     })
 }
@@ -82,7 +82,7 @@ function removeStock(str, num) {
         "UPDATE products SET ? WHERE ?",
         [
             {
-                stock_quantity: quantity
+                stock_quantity: quantity -= num
             },
             {
                 product_name: str

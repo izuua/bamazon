@@ -17,12 +17,12 @@ function start() {
         {
             type: "list",
             message: "What do you want to do?",
-            choices: ["View Products", "View Low Inventory", "Add to Inventory", "Add New Product"],
+            choices: ["View Products", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit"],
             name: "choice"
 
         }
     ]).then(function (answer) {
-        console.log(`You chose to ${answer.choice}`)
+        console.log(`You chose to ${answer.choice}.`)
         switch (answer.choice) {
             case "View Products":
                 viewProducts();
@@ -35,6 +35,9 @@ function start() {
                 break;
             case "Add New Product":
                 addProduct();
+                break;
+            case "Exit":
+                connectionEnd();
                 break;
         }
         
