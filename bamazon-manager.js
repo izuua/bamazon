@@ -3,6 +3,8 @@ require("dotenv").config();
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 // var keys = require("./keys.js");
+var quantity;
+
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -40,7 +42,7 @@ function start() {
                 connectionEnd();
                 break;
         }
-        
+
     })
 
 }
@@ -49,7 +51,7 @@ function viewProducts() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
 
-        res.forEach(function(str) {
+        res.forEach(function (str) {
             console.log(`item: ${str.product_name} | id: ${str.item_id} | department: ${str.department_name} | price: $${str.price} | stock: ${str.stock_quantity}`);
         })
     })
@@ -61,7 +63,7 @@ function lowInventory() {
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
         if (err) throw err;
 
-        res.forEach(function(str) {
+        res.forEach(function (str) {
             console.log(`item: ${str.product_name} | id: ${str.item_id} | department: ${str.department_name} | price: $${str.price} | stock: ${str.stock_quantity}`);
         })
     })
@@ -70,6 +72,82 @@ function lowInventory() {
 }
 
 function addInventory() {
+    connection.query("SELECT * FROM products", function (err, res) {
+        if (err) throw err;
+
+        var productNames = [];
+        var products = res;
+
+        res.forEach(function (str) {
+            productNames.push(str.product_name);
+        })
+
+        productSelect(productNames, products);
+
+    })
+}
+
+function productSelect(productNames, products) {
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "Which item do you want to increase the stock for",
+            choices: productNames,
+            name: "product"
+        }
+    ]).then(function (answer) {
+        productCheck(answer.product, products);
+        console.log(`\nYou chose ${answer.product}.`);
+        quantitySelect(answer.product)
+    })
+}
+
+function productCheck(name, arr) {
+    arr.forEach(function (element) {
+        if (name === element.product_name) {
+            quantity = element.stock_quantity;
+        }
+    })
+}
+
+function quantitySelect(name) {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: `How many ${name}s do you want to add to stock?`,
+            name: "quantity",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                console.log(`\nPlease select a number.`);
+                return false;
+            }
+        }
+    ]).then(function (answer) {
+        console.log(`You chose to add ${answer.quantity} ${name}s to stock.`);
+        addStock(name, answer.quantity);
+    })
+}
+
+function addStock(name, num) {
+    connection.query(
+        "UPDATE products SET ? WHERE ?",
+        [
+            {
+                stock_quantity: quantity += parseInt(num)
+            },
+            {
+                product_name: name
+            }
+        ],
+        function (err) {
+            if (err) throw err;
+        }
+    );
+
+    console.log(`${num} ${name}s added to stock.`)
+
     connectionEnd();
 }
 

@@ -45,7 +45,7 @@ function productSelect() {
     inquirer.prompt([
         {
             type: "list",
-            message: "Which item do you want to bid on?",
+            message: "Which item do you want to purchase",
             choices: productNames,
             name: "product"
         }
