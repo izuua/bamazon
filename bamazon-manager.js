@@ -152,6 +152,62 @@ function addStock(name, num) {
 }
 
 function addProduct() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the product name?",
+            name: "name"
+        },
+        {
+            type: "list",
+            message: "What department does it belong to?",
+            choices: [
+                "Weapons", "Armor", "Accessories"
+            ],
+            name: "department"
+        },
+        {
+            type: "input",
+            message: "How much does it cost?",
+            name: "price",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                console.log(`\nPlease select a number.`)
+                return false;
+            }
+        },
+        {
+            type: "input",
+            message: "How many do you want to add to stock?",
+            name: "stock",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                console.log(`\nPlease select a number.`)
+                return false;
+            }
+        }
+    ]).then(function (answer) {
+        insertProduct(answer.name, answer.department, answer.price, answer.stock);
+    })
+}
+
+function insertProduct(name, department, price, stock) {
+    connection.query("INSERT INTO products SET ?", {
+        product_name: name,
+        department_name: department,
+        price: price,
+        stock_quantity: stock
+    }),
+    function(err, res) {
+        if (err) throw err;
+    }
+
+    console.log(`\nProduct added.`);
+
     connectionEnd();
 }
 
