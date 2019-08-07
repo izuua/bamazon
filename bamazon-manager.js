@@ -13,25 +13,25 @@ var connection = mysql.createConnection({
 })
 
 // Function works correctly but removed during debugging until I get the rest of the application running.
-function passwordEnter() {
-    inquirer.prompt([
-        {
-            type: "password",
-            message: 'Type in the manager password to access this app:',
-            name: "password",
-            validate: function (value) {
-                if (value === keys.password) {
-                    return true;
-                }
-                console.log(`\nIncorrect password.`);
-                return false;
-            }
-        }
-    ]).then(function (answer) {
-        console.log(`Password correct.`)
-        start();
-    })
-}
+// function passwordEnter() {
+//     inquirer.prompt([
+//         {
+//             type: "password",
+//             message: 'Type in the manager password to access this app:',
+//             name: "password",
+//             validate: function (value) {
+//                 if (value === keys.password) {
+//                     return true;
+//                 }
+//                 console.log(`\nIncorrect password.`);
+//                 return false;
+//             }
+//         }
+//     ]).then(function (answer) {
+//         console.log(`Password correct.`)
+//         start();
+//     })
+// }
 
 function start() {
     inquirer.prompt([
@@ -238,8 +238,8 @@ function connectionEnd() {
 connection.connect(function (err) {
     if (err) throw err;
 
-    passwordEnter();
+    // passwordEnter();
 
-    // start();
+    start();
 
 })
