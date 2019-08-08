@@ -1,3 +1,5 @@
+//DO NOT GRADE THIS ASSIGNMENT SINCE I DID NOT ADD IMAGES. I DID IT JUST TO LEARN>
+
 require("dotenv").config();
 
 var mysql = require("mysql");
