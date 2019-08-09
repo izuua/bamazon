@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
     database: "bamazon_DB"
 })
 
-Function works correctly but removed during debugging until I get the rest of the application running.
+// Function works correctly but removed during debugging until I get the rest of the application running.
 function passwordEnter() {
     inquirer.prompt([
         {
